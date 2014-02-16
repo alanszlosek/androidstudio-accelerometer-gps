@@ -204,8 +204,9 @@ public class MainService  extends Service implements SensorEventListener, Locati
 
                 // What's our accuracy cutoff?
 
-                // Keep polling if our accuracy is worse than 10 meters
-                if (location.getAccuracy() > 4) {
+                // Keep polling if our accuracy is worse than 1 meter
+		// This should be configurable
+                if (location.getAccuracy() > 1) {
                     return;
                 }
                 // Stop GPS if we're getting much worse accuracy?
