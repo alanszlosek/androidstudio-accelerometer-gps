@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.AbsListView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.util.Log;
 
 
 public class DaysActivity extends ListActivity implements AbsListView.OnScrollListener {

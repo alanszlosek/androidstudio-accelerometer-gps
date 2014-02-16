@@ -2,7 +2,6 @@ package com.alanszlosek.whenmoving;
 
 import android.preference.PreferenceActivity;
 import android.os.Bundle;
-import android.util.Log;
 
 public class SettingsActivity extends PreferenceActivity {
     @Override
