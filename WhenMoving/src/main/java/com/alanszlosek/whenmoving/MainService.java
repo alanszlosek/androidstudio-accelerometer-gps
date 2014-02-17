@@ -157,6 +157,7 @@ public class MainService  extends Service implements SensorEventListener, Locati
         }
 
         if (iProviders == 0) {
+            // Should probably trigger a toast, so the user knows
             Debug("No providers available");
             sleep();
             MainApplication.wakeLock2(false);
@@ -188,6 +189,7 @@ public class MainService  extends Service implements SensorEventListener, Locati
         if (location.getProvider().equals("network") && gotNetwork == false) {
             saveLocation(location);
             gotNetwork = true;
+            // Don't return here, because if GPS is unavailable, we'll fall-through and stop the polling
         }
 
         if (cellOnly) {
@@ -205,7 +207,7 @@ public class MainService  extends Service implements SensorEventListener, Locati
                 // What's our accuracy cutoff?
 
                 // Keep polling if our accuracy is worse than 1 meter
-		// This should be configurable
+		        // This should be configurable
                 if (location.getAccuracy() > 1) {
                     return;
                 }
@@ -303,46 +305,9 @@ public class MainService  extends Service implements SensorEventListener, Locati
         } else if (provider == LocationManager.NETWORK_PROVIDER && mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 500, 0, this);
         }
-    }
-
-    /** Determines whether one Location reading is better than the current Location fix
-     * @param location  The new Location that you want to evaluate
-     * @param currentBestLocation  The current Location fix, to which you want to compare the new one
-     */
-    protected boolean isBetterLocation(Location location, Location currentBestLocation) {
-        /*
-        if (currentBestLocation == null) {
-            // A new location is always better than no location
-            return true;
-        }
-        */
-
-        // Check whether the new location fix is more or less accurate
-        int accuracyDelta = (int) (location.getAccuracy() - currentBestLocation.getAccuracy());
-        boolean isLessAccurate = accuracyDelta > 0;
-        boolean isMoreAccurate = accuracyDelta < 0;
-        boolean isSignificantlyLessAccurate = accuracyDelta > 200;
-
-        // Check if the old and new location are from the same provider
-        boolean isFromSameProvider = isSameProvider(location.getProvider(), currentBestLocation.getProvider());
-
-        // Determine location quality using a combination of timeliness and accuracy
-        if (isMoreAccurate) {
-            return true;
-        } else if (!isLessAccurate) {
-            return true;
-        } else if (!isSignificantlyLessAccurate && isFromSameProvider) {
-            return true;
-        }
-        return false;
-    }
-
-    /** Checks whether two providers are the same */
-    private boolean isSameProvider(String provider1, String provider2) {
-        if (provider1 == null) {
-            return provider2 == null;
-        }
-        return provider1.equals(provider2);
+        // Need to update the cellOnly flag
+        // Think we can simplify the above logic by simply checking if each provider exists anymore,
+        // and requesting updates for those that do
     }
 
 
@@ -442,13 +407,17 @@ public class MainService  extends Service implements SensorEventListener, Locati
         }
 
         if (newMovingState == true) {
-            if (currentBestLocation != null && currentBestLocation.getSpeed() > 0.0) {
-                s = String.format("Moving at roughly " + currentBestLocation.getSpeed() + "m/s");
+            if (currentBestLocation != null) {
+                s = String.format("At " + currentBestLocation.getSpeed() + " m/s");
             } else {
-                s = String.format("You're on the move");
+                s = String.format("Awaiting speed reading");
             }
         } else {
-            s = String.format("You're a sitting duck");
+            if (currentBestLocation != null) {
+                s = String.format("Previous speed: " + currentBestLocation.getSpeed() + " m/s");
+            } else {
+                s = String.format(". . .");
+            }
         }
 
         // Could detect long periods of motion here and give a badge or say something funny
