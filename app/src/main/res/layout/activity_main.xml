@@ -1,0 +1,37 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Settings"
+            android:id="@+id/settings_button"
+            android:layout_gravity="start"
+            android:onClick="onSettingsButton" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Calibrate"
+            android:id="@+id/calibration_button"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="start"
+            android:onClick="onCalibrateButton" />
+
+        <Switch
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:id="@+id/onoff_switch"
+            android:checked="false"
+            android:height="50dp"
+            android:layout_gravity="end" />
+    </LinearLayout>
+
+
+</RelativeLayout>

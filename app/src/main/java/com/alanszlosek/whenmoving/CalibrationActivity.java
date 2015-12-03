@@ -138,7 +138,7 @@ public class CalibrationActivity extends Activity implements AdapterView.OnItemS
                                 Math.pow(z,2)
                 )
         );
-        if (accel > MainApplication.prefThreshold2) {
+        if (accel > (9.8 + MainApplication.prefThreshold) || accel < (9.8 - MainApplication.prefThreshold)) {
             iAccelSignificantReadings++;
         }
 

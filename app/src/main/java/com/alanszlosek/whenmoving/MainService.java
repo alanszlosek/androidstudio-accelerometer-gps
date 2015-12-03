@@ -19,7 +19,6 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.support.v4.app.NotificationCompat;
 import android.text.format.DateFormat;
 import android.util.Log;
 
@@ -37,7 +36,7 @@ public class MainService  extends Service implements SensorEventListener, Locati
     protected static final int NOTIFICATION_ID = 8383939;
     protected long fSince = 0;
     protected Notification mNotification;
-    protected NotificationCompat.Builder mNotificationBuilder;
+    protected Notification.Builder mNotificationBuilder;
 
     // INTERNAL STATE
     private boolean movingState = false;
@@ -92,7 +91,11 @@ public class MainService  extends Service implements SensorEventListener, Locati
                 )
         );
         // Was 0.6. Lowered to 0.3 (plus gravity) to account for smooth motion from Portland Streetcar
-        if (accel > MainApplication.prefThreshold2) {
+        if (
+                accel > (9.8 + MainApplication.prefThreshold)
+                ||
+                accel < (9.8 - MainApplication.prefThreshold)
+        ) {
             iAccelSignificantReadings++;
         }
 
@@ -430,7 +433,7 @@ public class MainService  extends Service implements SensorEventListener, Locati
                     new Intent(this, MainActivity.class),
                     0
             );
-            mNotificationBuilder = new NotificationCompat.Builder(this).setContentIntent(mPendingIntent);
+            mNotificationBuilder = new Notification.Builder(this).setContentIntent(mPendingIntent);
         }
         mNotificationBuilder.setContentTitle( (newMovingState ? "Moving" : "Stationary") )
             .setContentText(s)

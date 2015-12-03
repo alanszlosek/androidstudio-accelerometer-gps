@@ -1,0 +1,73 @@
+<resources>
+    <string name="app_name">WhenMoving</string>
+    <string name="title_section1">Home</string>
+    <string name="title_section2">History</string>
+    <string name="title_section3">Calibrate</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_example">Example action</string>
+    <string name="action_settings">Settings</string>
+
+
+    <string name="settings">Settings</string>
+    <string name="refresh_markers">Show Latest</string>
+    <string name="calibrate">Calibrate</string>
+
+    <string name="pref_onoff_title">On/Off</string>
+    <string name="pref_onoff_summary">Turn tracking on/off</string>
+    <string name="pref_interval_title">Tracking Interval</string>
+    <string name="pref_interval_summary">How frequently to track location</string>
+    <string name="pref_timeout_title">GPS Timeout</string>
+    <string name="pref_timeout_summary">If no GPS fix within this, stop polling</string>
+    <string name="pref_threshold_title">Accelerometer Threshold</string>
+    <string name="pref_threshold_summary">To account for accelerometer noise</string>
+
+    <string-array name="pref_intervalLabels">
+        <item>10 seconds</item>
+        <item>20 seconds</item>
+        <item>30 seconds</item>
+        <item>40 seconds</item>
+        <item>50 seconds</item>
+        <item>60 seconds</item>
+        <item>70 seconds</item>
+        <item>80 seconds</item>
+        <item>90 seconds</item>
+    </string-array>
+    <string-array name="pref_intervalValues">
+        <item>10</item>
+        <item>20</item>
+        <item>30</item>
+        <item>40</item>
+        <item>50</item>
+        <item>60</item>
+        <item>70</item>
+        <item>80</item>
+        <item>90</item>
+    </string-array>
+
+    <string name="pref_intervalDefault">40</string>
+    <string name="pref_timeoutDefault">20</string>
+    <string name="pref_thresholdDefault">0.30</string>
+
+    <string-array name="pref_thresholdValues">
+        <item>0.05</item>
+        <item>0.10</item>
+        <item>0.15</item>
+        <item>0.20</item>
+        <item>0.25</item>
+        <item>0.30</item>
+        <item>0.35</item>
+        <item>0.40</item>
+        <item>0.45</item>
+        <item>0.50</item>
+        <item>0.55</item>
+        <item>0.60</item>
+        <item>0.65</item>
+        <item>0.70</item>
+        <item>0.75</item>
+        <item>0.80</item>
+        <item>0.85</item>
+        <item>0.90</item>
+        <item>0.95</item>
+    </string-array>
+</resources>
